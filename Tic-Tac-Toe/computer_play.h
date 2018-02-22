@@ -13,7 +13,7 @@
 #define BOARD_HEIGHT 3
 #define PIECE_SELECTION_NUMBER 3
 
-unsigned int computer_play(int board[], int player)
+unsigned int computer_play(int (&board)[BOARD_SIZE], int player)
 {
 	unsigned int Move = 0;
 	int Move_Value = 0;
@@ -28,7 +28,7 @@ unsigned int computer_play(int board[], int player)
 	{
 		if (board[i1] == player)
 		{
-			for (int i2 = i1 + 1; i2 + i1 < BOARD_SIZE; i2++)
+			for (int i2 = 1; i2 + i1 < BOARD_SIZE; i2++)
 			{
 				if (board[i1 + i2] == player && i2 % 2 == 0)
 				{
@@ -63,7 +63,7 @@ unsigned int computer_play(int board[], int player)
 		}
 		else if (board[i1] == -player)
 		{
-			for (int i2 = i1 + 1; i2 + i1 < BOARD_SIZE; i2++)
+			for (int i2 = 1; i2 + i1 < BOARD_SIZE; i2++)
 			{
 				if (board[i1 + i2] == -player && i2 % 2 == 0)
 				{
@@ -130,7 +130,7 @@ unsigned int computer_play(int board[], int player)
 			{
 				srand(time(0));
 				long long random = rand();
-				if (random > 32768)
+				if (random > RAND_MAX >> 1)
 				{
 					Move = i1;
 					Move_Value = Current_Move_Value;

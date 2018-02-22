@@ -1,12 +1,14 @@
 #pragma once
 
+#include <iostream>
+
 //Defintions
 #define BOARD_SIZE 9
 #define BOARD_WIDTH 3
 #define BOARD_HEIGHT 3
 #define PIECE_SELECTION_NUMBER 3
 
-bool winner(int board[], int player)
+bool winner(int (&board)[BOARD_SIZE], int player)
 {
 	for (int i1 = 0; i1 < BOARD_SIZE; i1++)
 	{
