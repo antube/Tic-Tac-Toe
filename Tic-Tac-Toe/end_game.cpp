@@ -1,5 +1,4 @@
-#pragma once
-
+//Includes
 #include <iostream>
 
 //Defintions
@@ -16,7 +15,9 @@ bool winner(int (&board)[BOARD_SIZE], int player)
 		{
 			for (int i2 = -BOARD_WIDTH - 1; i2 < BOARD_WIDTH + 1; i2++)
 			{
-				if (i2 == 0) i2++;
+				if (i2 == 0 || i2 == -1) continue;
+
+				if (i2 == 1 && i1 % 3 != 0) continue;
 
 				if (board[i1 + i2] == player)
 				{
@@ -39,4 +40,16 @@ bool winner(int (&board)[BOARD_SIZE], int player)
 		}
 	}
 	return false;
+}
+
+bool catgame(int (&board)[BOARD_SIZE])
+{
+	for (int i = 0; i < BOARD_SIZE; i++)
+	{
+		if (board[i] == 0)
+		{
+			return false;
+		}
+	}
+	return true;
 }

@@ -111,11 +111,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="computer_play.h" />
-    <ClInclude Include="winner.h" />
+    <ClInclude Include="prototypes.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="computer_play.cpp" />
     <ClCompile Include="Tic-Tac-Toe.cpp" />
+    <ClCompile Include="end_game.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
