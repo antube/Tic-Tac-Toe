@@ -15,24 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="definitions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="prototypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="structs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="computer_play.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="winner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

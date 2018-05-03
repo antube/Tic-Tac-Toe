@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{F53A3D39-17E7-4027-80A6-9DB85CD9D411}</ProjectGuid>
-    <RootNamespace>TicTacToe</RootNamespace>
+    <ProjectGuid>{EED4E709-EFC6-482C-90F9-311FC12DD0A9}</ProjectGuid>
+    <RootNamespace>TTTTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -111,14 +111,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="definitions.h" />
-    <ClInclude Include="prototypes.h" />
-    <ClInclude Include="structs.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="computer_play.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="winner.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
