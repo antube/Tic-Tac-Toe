@@ -12,6 +12,8 @@
 */
 
 //INCLUDES
+#include <cstdlib>
+#include <ctime>
 #include "definitions.h"
 #include "structs.h"
 
@@ -19,12 +21,13 @@
 
 
 //PROTOTYPES
-position choose(int*, int*, int);
+position check_win(int*, int*, int);
 
 
 
 int computer_play(int *bStart, int *bEnd, int player)
 {
+	srand(time(NULL));
 	position move;
 	move.initialization();
 	int *p1 = bStart;
@@ -32,7 +35,34 @@ int computer_play(int *bStart, int *bEnd, int player)
 	{
 		if (*bStart == player)
 		{
+			position temp = check_win(bStart, bEnd, player);
+			return temp.move;
+		}
+		else if (*bStart == player * -1)
+		{
+			position temp = check_win(bStart, bEnd, player * -1);
 
+			if (temp.type > move.type)
+			{
+				move = temp;
+			}
+			else if (temp.type == move.type)
+			{
+				int selector = rand() % 2;
+
+				if (selector == 0)
+				{
+					move = temp;
+				}
+			}
+		}
+
+		else if (move.type < 2)
+		{
+			for (int i = 0; i < BOARD_LENGTH; i++)
+			{
+
+			}
 		}
 		p1++;
 	}
@@ -40,10 +70,10 @@ int computer_play(int *bStart, int *bEnd, int player)
 	return 0;
 }
 
-position choose(int *bStart, int *bEnd, int Player)
+position check_win(int *bStart, int *bEnd, int Player)
 {
-	position hello;
-	hello.initialization();
+	position move;
+	move.initialization();
 
-	return hello;
+	return move;
 }
