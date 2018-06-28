@@ -14,8 +14,8 @@
 //INCLUDES
 #include <cstdlib>
 #include <ctime>
-#include "definitions.h"
-#include "structs.h"
+#include "headers/definitions.h"
+#include "headers/structs.h"
 
 //DEFINTIONS
 
