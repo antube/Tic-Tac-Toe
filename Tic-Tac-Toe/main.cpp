@@ -30,14 +30,16 @@ void Print_Board(int *pStart, int *pEnd);
 
 int main()
 {
+    std::cout << "\033[0;32m" << "Tic-Tac-Toe\n" << "Created by Andrew Brown\n";
+
 	int board[BOARD_LENGTH]
-	    { 0, 0, 0,
-		  0, 0, 0,
-		0, 0, 0 };
+	    {1, 1, 0,
+		 0, 0, 0,
+		 0, 0, 0 };
 
 	int *final_position = (board + (sizeof(board) / sizeof(int)));
 
-	board[computer_play(board, final_position, 1)] = 1;
+	board[computer_play(board, 1)] = 1;
 
 	Print_Board(board, final_position);
 
@@ -51,7 +53,21 @@ void Print_Board(int *pStart, int *pEnd)
 {
 	while (pStart < pEnd)
 	{
-		std::cout << *pStart;
+        if(*pStart == -1)
+        {
+            std::cout << "\033[0;31m" << *pStart;
+        }
+        else if(*pStart == 1)
+        {
+            std::cout << "\033[0;34m" << *pStart;
+        }
+        else
+        {
+            std::cout << *pStart;
+        }
+
+        std::cout << "\033[0;32m";
+
 		if (((pEnd - pStart) + 1) % BOARD_WIDTH == 2)
 		{
 			std::cout << std::endl;

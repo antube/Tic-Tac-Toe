@@ -1,2 +1,1 @@
-#pragma once
-int computer_play(int*, int*, int);
+int computer_play(int*, int);

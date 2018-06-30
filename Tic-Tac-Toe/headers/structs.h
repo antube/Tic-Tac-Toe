@@ -1,14 +1,13 @@
-#pragma once
 struct position
 {
 	int type;
 	int value;
-	int move;
+	int position;
 
 	void initialization()
 	{
 		type = 0;
 		value = 0;
-		move = 0;
+		position = 0;
 	}
 };
