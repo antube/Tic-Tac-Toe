@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/Tic-Tac-Toe/Tic-Tac-Toe",
+            "program": "${workspaceFolder}/main/Tic-Tac-Toe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

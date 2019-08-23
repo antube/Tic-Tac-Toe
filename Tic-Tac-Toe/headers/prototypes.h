@@ -1,1 +1,0 @@
-int computer_play(int*, int);
