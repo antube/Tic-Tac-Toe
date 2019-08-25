@@ -3,12 +3,12 @@ class computer
 	public:
 		computer(int player, int *board, int length);
 		~computer();
-		int numberofPlacesPlayed();
+		int playsCount();
 		int play();
 
 	private:
 		int playedListLength; //Number of positions stored in list
-		int playedListIndex;
+		int playedListIndex;  //Current number of actual plays stored
 		int *playedList;      //List of positions already played
 
 		int player;      //Assigned player

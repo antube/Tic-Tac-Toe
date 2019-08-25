@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "computerplayer.h"
+#include "move.h"
 
 ////////////////////////////
 // computer
@@ -20,9 +21,9 @@
 computer::computer(int player, int *board, int boardLength)
 {
 	if(player == 1)
-		playedListLength = (boardLength / 2) + 1;
+		playedListLength = ceil(boardLength / 2);
 	else if(player == -1)
-		playedListLength = (boardLength / 2);
+		playedListLength = floor(boardLength / 2);
 
 	playedList = new int[playedListLength];
 
@@ -62,7 +63,7 @@ computer::~computer()
 // Return:
 //        int
 ////////////////////////////////
-int computer::numberofPlacesPlayed()
+int computer::playsCount()
 {
 	return playedListIndex;
 }
@@ -100,8 +101,8 @@ int computer::play()
 			//Set play equal to a random number modulus the Board Length
 			play = rand() % boardLength;
 
-		//Repeat while play equals half board length
-		} while (play == (10 % (boardLength / 2) < 5) ? ceil(boardLength / 2) : floor(boardLength / 2));
+		//Repeat while space on board is not empty
+		} while (board[play] != 0);
 
 
 		//Add play to list of played positions
@@ -111,12 +112,14 @@ int computer::play()
 		return play;
 	}
 
-	for(int i = 0; i < playedListIndex; i++)
+	move Move;
+
+	for(int i = 0; i < boardLength; i++)
 	{
 		
 	}
 
-	return -1;
+	return Move.getposition();
 }
 
 void computer::addtoPlayedList(int position)

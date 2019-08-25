@@ -63,24 +63,41 @@ int main()
 		//Computer Player X selects play position and returns position
 		move = computerPlayerX->play();
 
-		//If play is valid
+		//If Player did not return error
 		if (move != -1)
 			//Play to board
 			board[move] = 1;
+		//Else return error and break
 		else if (move == -1)
+		{
+			//Return Error
+			std::cout << "Player X returned Error" << std::endl;
+			
+			//Break loop
 			break;
+		}
 
 		//Print Board
 		print_board(board);
 
-		move = humanPlay(board, BOARD_LENGTH, BOARD_WIDTH);
+		//Computer Player O selects play position and returns position
+		move = computerPlayerO->play();
 
+		//If player did not return error
 		if (move != -1)
 			//Play to board
 			board[move] = -1;
+		//Else return error and break
 		else if (move == -1)
-			break;
+		{
+			//Return Error
+			std::cout << "Player O returned Error" << std::endl;
 
+			//Break loop
+			break;
+		}
+
+		//Print board
 		print_board(board);
 	}
 	//Print Message wait message

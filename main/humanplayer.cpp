@@ -3,6 +3,17 @@
 
 void print_board(int board[], int boardLength, int boardWidth);
 
+///////////////////////////////
+// humanPlay
+// 
+// Arguments:
+//     board       : int[]
+//     boardLength : int
+//     boardWidth  : int
+//
+// Return:
+//     int
+///////////////////////////////
 int humanPlay(int board[], int boardLength, int boardWidth)
 {
 	while(true)
