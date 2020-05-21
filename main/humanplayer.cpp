@@ -36,23 +36,23 @@ int humanPlay(int board[], int boardLength, int boardWidth)
 		//Get y  coordinate from user
 		std::cin >> y;
 
-		//If y coordinate is greater than or equal to board width
-		if(x >= boardWidth)
+		//If x coordinate is greater than or equal to board width
+		if((x >= boardWidth || x < 1) || (y >= boardWidth || y < 1))
 		{
-			//Alert user to invalid coordinate
+			//Alert user to invalid coordinates
 			std::cout << "Invalid Coordinates\n\n";
 			
-			//continue with execution
+			//Restart execution of loop
 			continue;
 		}
 
-		//set z equal to x coordinate multiplied by the boardwidth and add y c
-		int z = (y * boardWidth) + x;
+		//set l equal to x coordinate multiplied by the boardwidth and add y c
+		int l = (y * boardWidth) + x;
 
 		//If selected space is within bounds of the board empty
-		if(z > 0 && z < boardLength && board[z] == 0)
+		if(l >= 0 && l < boardLength && board[l] == 0)
 			//return the space index
-			return z;
+			return l;
 		//Else
 		else
 			//Alert user to invalid coordinates

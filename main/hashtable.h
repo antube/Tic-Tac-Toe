@@ -1,3 +1,5 @@
+#pragma once
+
 class hash
 {
     public:
@@ -5,32 +7,33 @@ class hash
         ~hash(); //Destructor
 
         //Add entry to hash table
-        void addEntry( int e ) { add(e); }
+        void add( int e ) { addEntry(e); }
 
         //Remove entry from hash table
-        void removeEntry( int e ) { remove(e); }
+        void remove( int e ) { removeEntry(e); }
 
         //Check if specified entry exists in table
-        bool entryExists( int e ) { return exists(e); }
+        bool exists( int e ) { return entryExists(e); }
+
+        int size() { return filledSlots;}
 
     private:
         int *table;      //Pointer to hash table
         int tableLength; //Length of hashtable
+        int filledSlots; //Number of filled slots
 
         //Add item to table
-        void add( int );
+        void addEntry( int );
 
         //Remove item from table
-        void remove( int );
+        void removeEntry( int );
 
         //Check if item exists in hash table
-        bool exists( int );
+        bool entryExists( int );
 
         //Returns hash value
         int hashFunction( int );
 
-        void resize( int )
-        {
-
-        }
+        //Resizes hash table
+        void resize();
 };

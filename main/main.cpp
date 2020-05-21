@@ -1,6 +1,7 @@
 /*
- * O = -1
- * X =  1
+ * O           = -1
+ * Empty Space =  0
+ * X           =  1
  *  0/0 | 1/0 | 2/0
  *  ---------------
  *  0/1 | 1/1 | 2/1
@@ -45,61 +46,21 @@ int main()
 	//length 9 array containing the board
 	int board[BOARD_LENGTH]
 		{0, 0, 0,
-		 0, 0, 0,
-		 0, 0, 0};
+		 0, 1, 0,
+		 0, 0, 1};
 
-	//Create new instance of computer player object as x
-	computer *computerPlayerX = new computer(1, board, BOARD_LENGTH);
-	computer *computerPlayerO = new computer(-1, board, BOARD_LENGTH);
+	//Create new instance of computer player object as X
+	computer *computerPlayerX = new computer(1, board, BOARD_LENGTH, false);
+	//Create new instance of computer player object as O
+	computer *computerPlayerO = new computer(-1, board, BOARD_LENGTH, false);
 
 	//Print Board
 	print_board(board);
 
-	//Variable to store move
-	int move = 0;
+	board[computerPlayerO->play()] = -1;
 
-	while (true)
-	{
-		//Computer Player X selects play position and returns position
-		move = computerPlayerX->play();
+	print_board(board);
 
-		//If Player did not return error
-		if (move != -1)
-			//Play to board
-			board[move] = 1;
-		//Else return error and break
-		else if (move == -1)
-		{
-			//Return Error
-			std::cout << "Player X returned Error" << std::endl;
-			
-			//Break loop
-			break;
-		}
-
-		//Print Board
-		print_board(board);
-
-		//Computer Player O selects play position and returns position
-		move = computerPlayerO->play();
-
-		//If player did not return error
-		if (move != -1)
-			//Play to board
-			board[move] = -1;
-		//Else return error and break
-		else if (move == -1)
-		{
-			//Return Error
-			std::cout << "Player O returned Error" << std::endl;
-
-			//Break loop
-			break;
-		}
-
-		//Print board
-		print_board(board);
-	}
 	//Print Message wait message
 	std::cout << "Press any key to continue...\n";
 

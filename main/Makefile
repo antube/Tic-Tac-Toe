@@ -2,13 +2,13 @@
 CC = g++
 
 #Options
-CFLAGS = -c -Wall
+CFLAGS = -c -Wall -g
 
 #Include
 CINCLUDE = -lncurses
 
-main: main.o computerplayer.o humanplayer.o move.o
-	$(CC) main.o computerplayer.o humanplayer.o move.o -o Tic-Tac-Toe 
+main: main.o computerplayer.o humanplayer.o hashtable.o move.o
+	$(CC) main.o computerplayer.o humanplayer.o hashtable.o move.o -o Tic-Tac-Toe 
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) main.cpp
@@ -18,6 +18,9 @@ computerplayer.o: computerplayer.cpp
 
 humanplayer.o: humanplayer.cpp
 	$(CC) $(CFLAGS) humanplayer.cpp 
+
+hashtable.o: hashtable.cpp
+	$(CC) $(CFLAGS) hashtable.cpp
 
 move.o: move.cpp
 	$(CC) $(CFLAGS) move.cpp
