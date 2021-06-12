@@ -69,7 +69,7 @@ int main()
 
 	Display display = Display(board);
 
-	display.show(Splash, board, 1);
+	display.show(Splash, 1);
 
 	//Return 0
 	return 0;

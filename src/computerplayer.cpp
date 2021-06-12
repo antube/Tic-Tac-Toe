@@ -100,13 +100,13 @@ int ComputerPlayer::play()
 
 	Move move;
 
-	//If this is first move and I am first player (X is always first player)
+	//If the middle space is open play there
 	if (board[boardLength >> 1] == 0)
 	{
 		//Place at center of board
 		move.position = boardLength >> 1;
 	}
-	//else if this is first move
+	//else if this is first move and the player is O
 	else if (playCount == 1 && player == -1)
 	{
 		//Seed Random Number generator
@@ -117,6 +117,8 @@ int ComputerPlayer::play()
 
 		//Repeat while space on board is not empty
 		} while (board[move.position] != 0 || (move.position % BOARD_WIDTH == 1 || move.position / BOARD_WIDTH == 1));
+
+		return move.position;
 	}
 	else
 	{
@@ -133,7 +135,7 @@ int ComputerPlayer::play()
 				checkSpace(possibleMove, player, Won);
 
 				if (possibleMove.type != Won)
-					//Check if empty space is capable of a win
+					//Check if empty space is capable of a block
 					checkSpace(possibleMove, -player, Block);
 
 				//If the value of the possible move is greater than the value of
@@ -220,9 +222,8 @@ void ComputerPlayer::checkSpace(Move &possibleMove, int piece, MoveType type)
 
 	std::vector<delta> deltas;
 
-	/*
-	* Initialize i2 to the inverse of i so that when it is added to i it equals zero
-	*/
+	
+	//Initialize i2 to the inverse of i so that when it is added to i it equals zero
 	for (int i2 = -i; i + i2 < boardLength; i2++)
 	{
 		if (board[i + i2] == piece && onLine(i + i2, i))
