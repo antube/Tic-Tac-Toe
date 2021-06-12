@@ -12,6 +12,8 @@ private:
 	int width;
 	int height;
 
+	bool hasColor;
+
 public:
 	terminal();
 	~terminal();
@@ -22,6 +24,6 @@ public:
 	char getChar() { return getch();};
 
 	void screenUpdate();
-	void draw(std::queue<rasterPoint>, char);
-	void draw(point, char);
+	void draw(std::queue<rasterPoint>);
+	void draw(Point);
 };
