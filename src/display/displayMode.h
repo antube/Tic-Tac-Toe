@@ -2,7 +2,10 @@
 
 enum DisplayMode
 {
+    Splash,
     Menu,
     Board_Human,
-    Board_Computer
+    Board_Computer,
+    Win,
+    Draw
 };

@@ -98,13 +98,13 @@ int ComputerPlayer::play()
 		//Return error (-1)
 		return -1;
 
-	move Move;
+	Move move;
 
 	//If this is first move and I am first player (X is always first player)
 	if (board[boardLength >> 1] == 0)
 	{
 		//Place at center of board
-		Move.position = boardLength >> 1;
+		move.position = boardLength >> 1;
 	}
 	//else if this is first move
 	else if (playCount == 1 && player == -1)
@@ -113,10 +113,10 @@ int ComputerPlayer::play()
 		srand(time(0));
 		do {
 			//Set play equal to a random number modulus the Board Length
-			Move.position = rand() % boardLength;
+			move.position = rand() % boardLength;
 
 		//Repeat while space on board is not empty
-		} while (board[Move.position] != 0 || (Move.position % BOARD_WIDTH == 1 || Move.position / BOARD_WIDTH == 1));
+		} while (board[move.position] != 0 || (move.position % BOARD_WIDTH == 1 || move.position / BOARD_WIDTH == 1));
 	}
 	else
 	{
@@ -126,29 +126,29 @@ int ComputerPlayer::play()
 			//If current space is an empty space
 			if(board[i] == 0)
 			{
-				move possibleMove;
+				Move possibleMove;
 				possibleMove.position = i;
 
 				//Check if empty space is capable of blocking oponenent
-				checkSpace(possibleMove, player, Win);
+				checkSpace(possibleMove, player, Won);
 
-				if (possibleMove.type != Win)
+				if (possibleMove.type != Won)
 					//Check if empty space is capable of a win
 					checkSpace(possibleMove, -player, Block);
 
 				//If the value of the possible move is greater than the value of
 				//	 the previously selected Move
-				if (possibleMove.type > Move.type
-					|| possibleMove.type == Win
+				if (possibleMove.type > move.type
+					|| possibleMove.type == Won
 					|| (possibleMove.type == Block
-					&& Move.type != Win))
+					&& move.type != Won))
 				{
 					//Assign possibleMove to Move
-					Move = possibleMove;
+					move = possibleMove;
 				}
 				//Else if the value of the possible move is equal to the value
 				//	 of selected move
-				else if (possibleMove.type == Move.type)
+				else if (possibleMove.type == move.type)
 				{
 					//Seed random number generator with time
 					srand(time(0));
@@ -156,7 +156,7 @@ int ComputerPlayer::play()
 					//If random number generated is zero
 					if (rand() % 2 == 0)
 						//Assign possibleMove to Move
-						Move = possibleMove;
+						move = possibleMove;
 				}
 			}
 		}
@@ -164,7 +164,7 @@ int ComputerPlayer::play()
 
 	playCount++;
 
-	return Move.position;
+	return move.position;
 }
 
 
@@ -214,7 +214,7 @@ struct delta
 };
 
 
-void ComputerPlayer::checkSpace(move &possibleMove, int piece, MoveType type)
+void ComputerPlayer::checkSpace(Move &possibleMove, int piece, MoveType type)
 {
 	const int &i = possibleMove.position;
 

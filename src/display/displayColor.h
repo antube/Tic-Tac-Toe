@@ -1,0 +1,9 @@
+enum
+{
+    White,
+    Black,
+    Blue,
+    Red,
+    Green,
+    Amber
+};

@@ -5,20 +5,20 @@ enum MoveType
 	None,
 	Play,
 	Block,
-	Win
+	Won
 };
 
-struct move
+struct Move
 {
 	int position; //Position on board
 	MoveType type; //Type of move stored
 
 	//Constructor
-	move();
+	Move();
 
 	//Destructor
-	~move();
+	~Move();
 
 	//Overload the = operator to be used on the class
-	void operator=(move &m1);
+	void operator=(Move &m1);
 };

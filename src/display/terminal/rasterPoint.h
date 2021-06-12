@@ -4,7 +4,7 @@
 #include "color.h"
 
 
-struct rasterPoint
+struct RasterPoint
 {
 	int X;
 	int Y;

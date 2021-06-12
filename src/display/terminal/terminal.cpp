@@ -7,7 +7,7 @@
 #include "color.h"
 
 
-terminal::terminal()
+Terminal::Terminal()
 {
 	initscr();
 	raw();
@@ -21,13 +21,13 @@ terminal::terminal()
 	{
 		start_color();
 
-		init_pair(LOGO, COLOR_BLUE, COLOR_BLACK);
-		init_pair(MENU, COLOR_CYAN, COLOR_BLACK);
-		init_pair(O_PIECE, COLOR_BLUE, COLOR_BLACK);
-		init_pair(X_PIECE, COLOR_RED, COLOR_BLACK);
-		init_pair(BOARD, COLOR_GREEN, COLOR_BLACK);
-		init_pair(BOARD_SELECT, COLOR_BLACK, COLOR_WHITE);
-		init_pair(MENU_SELECT, COLOR_WHITE, COLOR_GREEN);
+		init_pair(COLOR_LOGO, COLOR_BLUE, COLOR_BLACK);
+		init_pair(COLOR_MENU, COLOR_CYAN, COLOR_BLACK);
+		init_pair(COLOR_O_PIECE, COLOR_BLUE, COLOR_BLACK);
+		init_pair(COLOR_X_PIECE, COLOR_RED, COLOR_BLACK);
+		init_pair(COLOR_BOARD, COLOR_GREEN, COLOR_BLACK);
+		init_pair(COLOR_BOARD_SELECT, COLOR_BLACK, COLOR_WHITE);
+		init_pair(COLOR_MENU_SELECT, COLOR_WHITE, COLOR_GREEN);
 	}
 
 	getmaxyx(stdscr, height, width);
@@ -37,22 +37,25 @@ terminal::terminal()
 }
 
 
-terminal::~terminal()
+Terminal::~Terminal()
 {
 	endwin();
 }
 
 
-void terminal::screenUpdate()
+void Terminal::screenUpdate()
 {
 	//Dump memory contents to screen
 	refresh();
 }
 
 
-void terminal::draw(std::queue<rasterPoint> raster)
+void Terminal::draw(std::queue<RasterPoint> &raster)
 {
-	rasterPoint  previousPoint = raster.front();
+	if (raster.size() == 0)
+		return;
+
+	RasterPoint  previousPoint = raster.front();
 	raster.pop();
 
 	if (hasColor && previousPoint.color != 0)
@@ -67,7 +70,7 @@ void terminal::draw(std::queue<rasterPoint> raster)
 
 	while(!raster.empty())
 	{
-		rasterPoint currentPoint = raster.front();
+		RasterPoint currentPoint = raster.front();
 		raster.pop();
 
 		if (hasColor && currentPoint.color != 0)
@@ -101,7 +104,7 @@ void terminal::draw(std::queue<rasterPoint> raster)
 	}
 }
 
-void terminal::draw(Point object)
+void Terminal::draw(Point &object)
 {
 	if (hasColor && object.color != 0)
 		attron(COLOR_PAIR(object.color));

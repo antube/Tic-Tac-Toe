@@ -25,8 +25,9 @@
 //INCLUDES
 #include <iostream>
 #include <vector>
+#include "display/display.h"
+#include "display/displayMode.h"
 #include "computerplayer.h"
-#include "humanplayer.h"
 
 
 //DEFINTIONS
@@ -60,33 +61,15 @@ bool onLine(int, int);
 /////////////////////////////
 int main()
 {
-    std::cout << "\033[0;32m" << "Tic-Tac-Toe\n" << "Created by Andrew Brown\n";
-
 	//length 9 array containing the board
 	int board[BOARD_LENGTH]
 		{0,  0,  0,
 		 0,  0,  0,
 		 0,  0,  0};
 
-	//Create new instance of computer player object as X
-	ComputerPlayer *computerPlayerX = new ComputerPlayer(1, board, BOARD_LENGTH, false);
-	//Create new instance of computer player object as O
-	ComputerPlayer *computerPlayerO = new ComputerPlayer(-1, board, BOARD_LENGTH, false);
+	Display display = Display(board);
 
-	while (computerPlayerO->playsCount() < 9)
-	{
-		//Print Board
-		printBoard(board);
-
-		board[computerPlayerX->play()] = 1;
-
-		//Print Board
-		printBoard(board);
-
-		board[computerPlayerO->play()] = -1;
-	}
-	//Print Board
-	printBoard(board);
+	display.show(Splash, board, 1);
 
 	//Return 0
 	return 0;

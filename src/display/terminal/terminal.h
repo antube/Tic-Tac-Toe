@@ -6,7 +6,7 @@
 #include "point.h"
 #include "rasterPoint.h"
 
-class terminal
+class Terminal
 {
 private:
 	int width;
@@ -15,8 +15,8 @@ private:
 	bool hasColor;
 
 public:
-	terminal();
-	~terminal();
+	Terminal();
+	~Terminal();
 
 	int getWidth() { return width; }
 	int getHeight() { return height; }
@@ -24,6 +24,6 @@ public:
 	char getChar() { return getch();};
 
 	void screenUpdate();
-	void draw(std::queue<rasterPoint>);
-	void draw(Point);
+	void draw(std::queue<RasterPoint>&);
+	void draw(Point&);
 };

@@ -10,7 +10,7 @@
 // Returns:
 //     None
 /////////////////////////////////
-move::move()
+Move::Move()
 {
 	//Set position to -1
 	position = -1;
@@ -18,6 +18,7 @@ move::move()
 	//Set move type to None
 	type = MoveType::None;
 }
+
 
 ////////////////////////
 // ~move
@@ -28,7 +29,7 @@ move::move()
 // Return:
 //     None
 ///////////////////////
-move::~move()
+Move::~Move()
 {
 	//Reset position
 	position = 0;
@@ -36,6 +37,7 @@ move::~move()
 	//Reset type
 	type = MoveType::None;
 }
+
 
 /////////////////////////
 // operator=
@@ -46,7 +48,7 @@ move::~move()
 // Return:
 //     None
 /////////////////////////
-void move::operator=(move &moveRightSide)
+void Move::operator=(Move &moveRightSide)
 {
 	//Set position of current move equal to moveRightSide's stored position
 	position = moveRightSide.position;

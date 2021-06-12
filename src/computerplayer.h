@@ -12,12 +12,11 @@ class ComputerPlayer
 		int boardLength; //Length of board
 
 		bool onLine(int, int);
-		void checkSpace(move&, int, MoveType);
+		void checkSpace(Move&, int, MoveType);
 
 	public:
 		ComputerPlayer(int player, int *board, int boardlength, bool boardEmpty = true);
 		~ComputerPlayer();
 		int playsCount();
 		int play();
-		bool onLineTest(int i1, int i2) { return onLine(i1, i2); }
 };
