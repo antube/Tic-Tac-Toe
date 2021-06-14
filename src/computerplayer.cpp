@@ -111,6 +111,17 @@ int ComputerPlayer::play()
 	{
 		//Seed Random Number generator
 		srand(time(0));
+
+		/*
+		 * 0 |   | 2
+         * --+---+--
+         *   |   |  
+         * --+---+--
+         * 6 |   | 8
+		 * 
+		 * 0 1 2 3
+		*/
+
 		do {
 			//Set play equal to a random number modulus the Board Length
 			move.position = rand() % boardLength;
@@ -118,7 +129,7 @@ int ComputerPlayer::play()
 		//Repeat while space on board is not empty
 		} while (board[move.position] != 0 || (move.position % BOARD_WIDTH == 1 || move.position / BOARD_WIDTH == 1));
 
-		return move.position;
+		move.position;
 	}
 	else
 	{
@@ -131,12 +142,14 @@ int ComputerPlayer::play()
 				Move possibleMove;
 				possibleMove.position = i;
 
-				//Check if empty space is capable of blocking oponenent
+				//Check if empty space is capable of a win
 				checkSpace(possibleMove, player, Won);
 
-				if (possibleMove.type != Won)
-					//Check if empty space is capable of a block
-					checkSpace(possibleMove, -player, Block);
+				if (possibleMove.type == Won)
+					return possibleMove.position;
+
+				//Check if empty space is capable of a block
+				checkSpace(possibleMove, -player, Block);
 
 				//If the value of the possible move is greater than the value of
 				//	 the previously selected Move
@@ -226,13 +239,30 @@ void ComputerPlayer::checkSpace(Move &possibleMove, int piece, MoveType type)
 	//Initialize i2 to the inverse of i so that when it is added to i it equals zero
 	for (int i2 = -i; i + i2 < boardLength; i2++)
 	{
+		//If the space at the described board position is filled with the piece I am currerntly looking for
+		//	And the pieces at at i+i2 and i are on a line
 		if (board[i + i2] == piece && onLine(i + i2, i))
 		{
+			//ISSUE: Take the center postion, as all diagonal spots have an absolute value change
+			//  on both the x and y of 1 they will look the same.
+
+			//Take the change in x and y
 			int tempDeltaX = abs((i % BOARD_WIDTH) - ((i + i2) % BOARD_WIDTH));
 			int tempDeltaY = abs((i / BOARD_WIDTH) - ((i + i2) / BOARD_WIDTH));
 
+			//Loop through the list of deltas
 			for (delta d : deltas)
 			{
+				//What I am looking for is if the deltas line up so that the empty space I am currently looking at
+				//  is bounded by two pieces in a line by looking for another set of deltas that compliments the temporary deltas
+				//  If the deltas are in a line and they 
+
+				//IF
+				//    The temporary deltas are equal to the list deltas 
+				//OR
+				//    The temporary deltas are equal to the list deltas added to them selves
+				//OR
+				//    The temporary deltas added to them selves are equal to the list deltas
 				if ((tempDeltaX == d.deltaX && tempDeltaY == d.deltaY) ||
 				    (tempDeltaX == d.deltaX + d.deltaX && tempDeltaY == d.deltaY + d.deltaY) ||
 					(tempDeltaX + tempDeltaX == d.deltaX && tempDeltaY + tempDeltaY == d.deltaY))
@@ -242,6 +272,7 @@ void ComputerPlayer::checkSpace(Move &possibleMove, int piece, MoveType type)
 				}
 			}
 
+			//Add deltas to list
 			delta d;
 			d.deltaX = tempDeltaX;
 			d.deltaY = tempDeltaY;
@@ -250,6 +281,6 @@ void ComputerPlayer::checkSpace(Move &possibleMove, int piece, MoveType type)
 		}
 	}
 
-
+	//If I fall out I did not find a block or win. Return that it is just a play
 	possibleMove.type = Play;
 }
