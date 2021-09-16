@@ -128,8 +128,6 @@ int ComputerPlayer::play()
 
 		//Repeat while space on board is not empty
 		} while (board[move.position] != 0 || (move.position % BOARD_WIDTH == 1 || move.position / BOARD_WIDTH == 1));
-
-		move.position;
 	}
 	else
 	{

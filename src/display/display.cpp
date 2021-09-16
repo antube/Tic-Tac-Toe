@@ -111,9 +111,6 @@ void Display::splash()
 
 int Display::menu()
 {
-    int logoWidth = 0;
-    int logoHeight = 0;
-
     std::vector<std::string> logo;
 
     logo = getAscii("logo.ascii");
@@ -160,8 +157,9 @@ std::vector<std::string> Display::getAscii(std::string path)
 
     std::string line;
 
-    while (getline(infile, line))
+    while (std::getline(infile, line))
     {
+        line.push_back('\0');
         logo.push_back(line);
     }
 
