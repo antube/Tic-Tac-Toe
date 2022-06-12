@@ -122,12 +122,26 @@ int ComputerPlayer::play()
 		 * 0 1 2 3
 		*/
 
-		do {
-			//Set play equal to a random number modulus the Board Length
-			move.position = rand() % boardLength;
+		move.position = rand() % 4;
 
-		//Repeat while space on board is not empty
-		} while (board[move.position] != 0 || (move.position % BOARD_WIDTH == 1 || move.position / BOARD_WIDTH == 1));
+		switch(move.position)
+		{
+			// I am including this for completness
+			case 0:
+				move.position = 0;
+				break;
+
+			case 1:
+				move.position = 2;
+				break;
+			case 2:
+				move.position = 6;
+				break;
+
+			case 3:
+				move.position = 8;
+				break;
+		}
 	}
 	else
 	{
@@ -153,8 +167,7 @@ int ComputerPlayer::play()
 				//	 the previously selected Move
 				if (possibleMove.type > move.type
 					|| possibleMove.type == Won
-					|| (possibleMove.type == Block
-					&& move.type != Won))
+					|| (possibleMove.type == Block && move.type != Won))
 				{
 					//Assign possibleMove to Move
 					move = possibleMove;
@@ -256,11 +269,11 @@ void ComputerPlayer::checkSpace(Move &possibleMove, int piece, MoveType type)
 				//  If the deltas are in a line and they 
 
 				//IF
-				//    The temporary deltas are equal to the list deltas 
+				//    The temporary deltas are equal to the list deltas item
 				//OR
-				//    The temporary deltas are equal to the list deltas added to them selves
+				//    The temporary deltas are equal to the list deltas added to themselves
 				//OR
-				//    The temporary deltas added to them selves are equal to the list deltas
+				//    The temporary deltas added to themselves are equal to the list deltas
 				if ((tempDeltaX == d.deltaX && tempDeltaY == d.deltaY) ||
 				    (tempDeltaX == d.deltaX + d.deltaX && tempDeltaY == d.deltaY + d.deltaY) ||
 					(tempDeltaX + tempDeltaX == d.deltaX && tempDeltaY + tempDeltaY == d.deltaY))

@@ -25,6 +25,7 @@
 //INCLUDES
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "display/display.h"
 #include "display/displayMode.h"
 #include "computerplayer.h"
@@ -45,8 +46,11 @@ struct Boolean
 
 //PROTOTYPES
 void printBoard(int[]);
-Boolean isThereWinner(int[]);
-bool checkSpace(int&, int[]);
+int getUserInput(int[]);
+std::shared_ptr<Boolean> isThereWinner(int[], int = 0);
+bool isCatGame(int[]);
+char whoWon(int[]);
+bool checkSpace(int, int[], int);
 bool onLine(int, int);
 
 
@@ -67,11 +71,46 @@ int main()
 		 0,  0,  0,
 		 0,  0,  0};
 
-	Display display = Display(board);
+	ComputerPlayer playerX(1, board, BOARD_LENGTH);
+	ComputerPlayer playerY(-1, board, BOARD_LENGTH);
 
-	display.show(Splash, 1);
 
-	//Return 0
+	while (true)
+	{
+		int result = 0;
+		result = playerX.play();
+		board[result] = 1;
+
+		if (isThereWinner(board, 1)->True || isCatGame(board) || result == -1)
+			break;
+			
+
+		printBoard(board);
+
+		result = getUserInput(board);
+		board[result] = -1;
+
+		if (isThereWinner(board, -1)->True || isCatGame(board))
+			break;
+			
+
+		//std::system("clear");
+	}
+
+	std::system("clear");
+	
+	printBoard(board);
+
+	if(isThereWinner(board)->True)
+		std::cout << ((isThereWinner(board)->piece == 1) ? 'X' : 'O') << " Won!!" << std::endl << std::endl;
+	else if (isCatGame(board))
+		std::cout << "Cat Game" << std::endl << std::endl;
+	else
+		std::cout << "ERROR: there is no winner and it is not a cat game. I am currently scratching my head as to how this could happen but here you are." << std::endl << std::endl;
+
+	std::cout << "End of Line" << std::endl;
+
+	
 	return 0;
 }
 
@@ -134,23 +173,79 @@ void printBoard(int board[])
 }
 
 
-Boolean isThereWinner(int board[])
+int getUserInput(int board[])
+{
+	int playPosition = 0;
+
+	do
+	{
+		std::cout << "Please enter a play location (0-" << BOARD_LENGTH - 1 << "): ";
+		std::cin >> playPosition;
+	} while (board[playPosition] != 0);
+	
+	return playPosition;
+}
+
+
+std::shared_ptr<Boolean> isThereWinner(int board[], int player)
 {
 	for(int i = 0; i < BOARD_LENGTH; i++)
 	{
-		Boolean b;
-		b.True = checkSpace(i, board);
-		b.piece = board[i];
+		std::shared_ptr<Boolean> b(new Boolean());
+		b->piece = board[i];
 
-		if (!b.True)
-			return b;
+		if (player == 0)
+		{
+			if (board[i] == 1)
+			{
+				b->True = checkSpace(i, board, 1);
+
+				if (b->True)
+					return b;
+			}
+
+			if (board[i] == -1)
+			{
+				b->True = checkSpace(i, board, -1);
+
+				if (b->True)
+					return b;
+			}
+		}
+		else
+		{
+			if (board[i] == player)
+			{
+				b->True = checkSpace(i, board, player);
+
+				if (b->True)
+					return b;
+			}
+		}
 	}
 
-	Boolean b;
-	b.True = false;
-	b.piece = 0;
+	std::shared_ptr<Boolean> b(new Boolean());
+	b->True = false;
+	b->piece = 0;
 
 	return b;
+}
+
+
+bool isCatGame(int board[])
+{
+	int count = 0;
+
+	for (int i = 0; i < BOARD_LENGTH; i++)
+	{
+		if (board[i] != 0)
+			count++;
+	}
+
+	if (count == BOARD_LENGTH)
+		return true;
+
+	return false;
 }
 
 
@@ -162,24 +257,38 @@ struct delta
 };
 
 
-bool checkSpace(int &position, int board[])
+bool checkSpace(int i, int board[], int piece)
 {
-	const int &i = position;
-
 	std::vector<delta> deltas;
 
-	/*
-	* Initialize i2 to the inverse of i so that when it is added to i it equals zero
-	*/
+	
+	//Initialize i2 to the inverse of i so that when it is added to i it equals zero
 	for (int i2 = -i; i + i2 < BOARD_LENGTH; i2++)
 	{
-		if (board[i + i2] == board[i] && onLine(i + i2, i))
+		//If the space at the described board position is filled with the piece I am currerntly looking for
+		//	And the pieces at at i+i2 and i are on a line
+		if (board[i + i2] == piece && onLine(i + i2, i))
 		{
+			//ISSUE: Take the center postion, as all diagonal spots have an absolute value change
+			//  on both the x and y of 1 they will look the same.
+
+			//Take the change in x and y
 			int tempDeltaX = abs((i % BOARD_WIDTH) - ((i + i2) % BOARD_WIDTH));
 			int tempDeltaY = abs((i / BOARD_WIDTH) - ((i + i2) / BOARD_WIDTH));
 
+			//Loop through the list of deltas
 			for (delta d : deltas)
 			{
+				//What I am looking for is if the deltas line up so that the empty space I am currently looking at
+				//  is bounded by two pieces in a line by looking for another set of deltas that compliments the temporary deltas
+				//  If the deltas are in a line and they 
+
+				//IF
+				//    The temporary deltas are equal to the list deltas item
+				//OR
+				//    The temporary deltas are equal to the list deltas added to themselves
+				//OR
+				//    The temporary deltas added to themselves are equal to the list deltas
 				if ((tempDeltaX == d.deltaX && tempDeltaY == d.deltaY) ||
 				    (tempDeltaX == d.deltaX + d.deltaX && tempDeltaY == d.deltaY + d.deltaY) ||
 					(tempDeltaX + tempDeltaX == d.deltaX && tempDeltaY + tempDeltaY == d.deltaY))
@@ -188,6 +297,7 @@ bool checkSpace(int &position, int board[])
 				}
 			}
 
+			//Add deltas to list
 			delta d;
 			d.deltaX = tempDeltaX;
 			d.deltaY = tempDeltaY;
@@ -196,7 +306,7 @@ bool checkSpace(int &position, int board[])
 		}
 	}
 
-
+	//If I fall out I did not find a block or win so return false
 	return false;
 }
 

@@ -150,7 +150,7 @@ std::vector<std::string> Display::getAscii(std::string path)
 
     std::ifstream infile;
 
-    infile.open(path, std::ios::binary);
+    infile.open(path, std::ios::in);
 
     if (!infile)
         return logo;
@@ -159,7 +159,6 @@ std::vector<std::string> Display::getAscii(std::string path)
 
     while (std::getline(infile, line))
     {
-        line.push_back('\0');
         logo.push_back(line);
     }
 
