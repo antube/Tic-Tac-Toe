@@ -179,8 +179,8 @@ int ComputerPlayer::play()
 					//Seed random number generator with time
 					srand(time(0));
 
-					//If random number generated is zero
-					if (rand() % 2 == 0 && !playIsBlocked(possibleMove.position, player))
+					//If random number generated is even
+					if (rand() % 2 == 0)
 						//Assign possibleMove to Move
 						move = possibleMove;
 				}
@@ -294,58 +294,4 @@ void ComputerPlayer::checkSpace(Move &possibleMove, int piece, MoveType type)
 
 	//If I fall out I did not find a block or win. Return that it is just a play
 	possibleMove.type = Play;
-}
-
-
-bool ComputerPlayer::playIsBlocked(int i, int piece)
-{
-	std::vector<delta> deltas;
-
-	
-	//Initialize i2 to the inverse of i so that when it is added to i it equals zero
-	for (int i2 = -i; i + i2 < boardLength; i2++)
-	{
-		//If the space at the described board position is filled with the piece I am currerntly looking for
-		//	And the pieces at at i+i2 and i are on a line
-		if (board[i + i2] == -piece && onLine(i + i2, i))
-		{
-			//ISSUE: Take the center postion, as all diagonal spots have an absolute value change
-			//  on both the x and y of 1 they will look the same.
-
-			//Take the change in x and y
-			int tempDeltaX = (i % BOARD_WIDTH) - ((i + i2) % BOARD_WIDTH);
-			int tempDeltaY = (i / BOARD_WIDTH) - ((i + i2) / BOARD_WIDTH);
-
-			//Loop through the list of deltas
-			for (delta d : deltas)
-			{
-				//What I am looking for is if the deltas line up so that the empty space I am currently looking at
-				//  is bounded by two pieces in a line by looking for another set of deltas that compliments the temporary deltas
-				//  If the deltas are in a line and they 
-
-				//IF
-				//    The temporary deltas are equal to the list deltas item
-				//OR
-				//    The temporary deltas are equal to the list deltas added to themselves
-				//OR
-				//    The temporary deltas added to themselves are equal to the list deltas
-				if ((tempDeltaX == -d.deltaX && tempDeltaY == -d.deltaY) ||
-				    (tempDeltaX == d.deltaX + d.deltaX && tempDeltaY == d.deltaY + d.deltaY) ||
-					(tempDeltaX + tempDeltaX == d.deltaX && tempDeltaY + tempDeltaY == d.deltaY))
-				{
-					return true;
-				}
-			}
-
-			//Add deltas to list
-			delta d;
-			d.deltaX = tempDeltaX;
-			d.deltaY = tempDeltaY;
-
-			deltas.push_back(d);
-		}
-	}
-
-	//If I fall out I did not find a block or win. Return that it is just a play
-	return false;
 }
