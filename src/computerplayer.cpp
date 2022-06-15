@@ -179,7 +179,7 @@ int ComputerPlayer::play()
 					//Seed random number generator with time
 					srand(time(0));
 
-					//If random number generated is zero
+					//If random number generated is even
 					if (rand() % 2 == 0)
 						//Assign possibleMove to Move
 						move = possibleMove;
@@ -258,8 +258,8 @@ void ComputerPlayer::checkSpace(Move &possibleMove, int piece, MoveType type)
 			//  on both the x and y of 1 they will look the same.
 
 			//Take the change in x and y
-			int tempDeltaX = abs((i % BOARD_WIDTH) - ((i + i2) % BOARD_WIDTH));
-			int tempDeltaY = abs((i / BOARD_WIDTH) - ((i + i2) / BOARD_WIDTH));
+			int tempDeltaX = (i % BOARD_WIDTH) - ((i + i2) % BOARD_WIDTH);
+			int tempDeltaY = (i / BOARD_WIDTH) - ((i + i2) / BOARD_WIDTH);
 
 			//Loop through the list of deltas
 			for (delta d : deltas)
@@ -274,7 +274,7 @@ void ComputerPlayer::checkSpace(Move &possibleMove, int piece, MoveType type)
 				//    The temporary deltas are equal to the list deltas added to themselves
 				//OR
 				//    The temporary deltas added to themselves are equal to the list deltas
-				if ((tempDeltaX == d.deltaX && tempDeltaY == d.deltaY) ||
+				if ((tempDeltaX == -d.deltaX && tempDeltaY == -d.deltaY) ||
 				    (tempDeltaX == d.deltaX + d.deltaX && tempDeltaY == d.deltaY + d.deltaY) ||
 					(tempDeltaX + tempDeltaX == d.deltaX && tempDeltaY + tempDeltaY == d.deltaY))
 				{
