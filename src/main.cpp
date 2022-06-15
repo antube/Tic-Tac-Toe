@@ -46,7 +46,7 @@ struct Boolean
 
 //PROTOTYPES
 void printBoard(int[]);
-int getUserInput(int[]);
+void UserPlay(int[], int);
 std::shared_ptr<Boolean> isThereWinner(int[], int = 0);
 bool isCatGame(int[]);
 char whoWon(int[]);
@@ -71,31 +71,21 @@ int main()
 		 0,  0,  0,
 		 0,  0,  0};
 
-	std::shared_ptr<Boolean> b = isThereWinner(board, 1);
-
-	std::cout << "Player: " << b->piece << std::endl;
-	std::cout << "Result: " << b->True << std::endl;
-
-	//std::cout << checkSpace(0, board, 1) << std::endl;
-
-	/*ComputerPlayer playerX(1, board, BOARD_LENGTH);
+	ComputerPlayer playerX(1, board, BOARD_LENGTH);
 	ComputerPlayer playerY(-1, board, BOARD_LENGTH);
 
 
 	while (true)
 	{
-		int result = 0;
-		result = playerX.play();
-		board[result] = 1;
+		playerX.play();
 
-		if (isThereWinner(board, 1)->True || isCatGame(board) || result == -1)
+		if (isThereWinner(board, 1)->True || isCatGame(board))
 			break;
 			
 
 		printBoard(board);
 
-		result = getUserInput(board);
-		board[result] = -1;
+		UserPlay(board, -1);
 
 		if (isThereWinner(board, -1)->True || isCatGame(board))
 			break;
@@ -115,7 +105,7 @@ int main()
 	else
 		std::cout << "ERROR: there is no winner and it is not a cat game. I am currently scratching my head as to how this could happen but here you are." << std::endl << std::endl;
 
-	std::cout << "End of Line" << std::endl;*/
+	std::cout << "End of Line" << std::endl;
 
 	
 	return 0;
@@ -180,7 +170,7 @@ void printBoard(int board[])
 }
 
 
-int getUserInput(int board[])
+void UserPlay(int board[], int player)
 {
 	int playPosition = 0;
 
@@ -190,7 +180,7 @@ int getUserInput(int board[])
 		std::cin >> playPosition;
 	} while (board[playPosition] != 0);
 	
-	return playPosition;
+	board[playPosition] = player;
 }
 
 

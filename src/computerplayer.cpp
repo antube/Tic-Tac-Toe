@@ -78,6 +78,10 @@ int ComputerPlayer::playsCount()
 	return playCount;
 }
 
+void ComputerPlayer::play()
+{
+	board[playReturn()] = player;
+}
 
 ////////////////////////////////
 // play
@@ -91,7 +95,7 @@ int ComputerPlayer::playsCount()
 // Return:
 //        	 int : Position to play at
 ////////////////////////////////
-int ComputerPlayer::play()
+int ComputerPlayer::playReturn()
 {
 	//If all possible positions have been played
 	if (playCount == ((player == 1)?5:4))
@@ -122,26 +126,28 @@ int ComputerPlayer::play()
 		 * 0 1 2 3
 		*/
 
-		move.position = rand() % 4;
-
-		switch(move.position)
+		do
 		{
-			// I am including this for completness
-			case 0:
-				move.position = 0;
-				break;
+			move.position = rand() % 4;
 
-			case 1:
-				move.position = 2;
-				break;
-			case 2:
-				move.position = 6;
-				break;
+			switch(move.position)
+			{
+				// I am including this for completness
+				case 0:
+					move.position = 0;
+					break;
+				case 1:
+					move.position = 2;
+					break;
+				case 2:
+					move.position = 6;
+					break;
 
-			case 3:
-				move.position = 8;
-				break;
-		}
+				case 3:
+					move.position = 8;
+					break;
+			}
+		} while(board[move.position] != 0);
 	}
 	else
 	{
