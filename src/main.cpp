@@ -75,40 +75,9 @@ int main()
 	ComputerPlayer playerY(-1, board, BOARD_LENGTH);
 
 
-	while (true)
-	{
-		int result = 0;
-		result = playerX.play();
-		board[result] = 1;
+	Display display = Display(board);
 
-		if (isThereWinner(board, 1)->True || isCatGame(board) || result == -1)
-			break;
-			
-
-		printBoard(board);
-
-		result = getUserInput(board);
-		board[result] = -1;
-
-		if (isThereWinner(board, -1)->True || isCatGame(board))
-			break;
-			
-
-		//std::system("clear");
-	}
-
-	std::system("clear");
-	
-	printBoard(board);
-
-	if(isThereWinner(board)->True)
-		std::cout << ((isThereWinner(board)->piece == 1) ? 'X' : 'O') << " Won!!" << std::endl << std::endl;
-	else if (isCatGame(board))
-		std::cout << "Cat Game" << std::endl << std::endl;
-	else
-		std::cout << "ERROR: there is no winner and it is not a cat game. I am currently scratching my head as to how this could happen but here you are." << std::endl << std::endl;
-
-	std::cout << "End of Line" << std::endl;
+	display.show(Splash, 1);
 
 	
 	return 0;
