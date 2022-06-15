@@ -13,6 +13,7 @@ class ComputerPlayer
 
 		bool onLine(int, int);
 		void checkSpace(Move&, int, MoveType);
+		bool playIsBlocked(int, int);
 
 	public:
 		ComputerPlayer(int player, int *board, int boardlength, bool boardEmpty = true);

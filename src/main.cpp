@@ -71,7 +71,14 @@ int main()
 		 0,  0,  0,
 		 0,  0,  0};
 
-	ComputerPlayer playerX(1, board, BOARD_LENGTH);
+	std::shared_ptr<Boolean> b = isThereWinner(board, 1);
+
+	std::cout << "Player: " << b->piece << std::endl;
+	std::cout << "Result: " << b->True << std::endl;
+
+	//std::cout << checkSpace(0, board, 1) << std::endl;
+
+	/*ComputerPlayer playerX(1, board, BOARD_LENGTH);
 	ComputerPlayer playerY(-1, board, BOARD_LENGTH);
 
 
@@ -108,7 +115,7 @@ int main()
 	else
 		std::cout << "ERROR: there is no winner and it is not a cat game. I am currently scratching my head as to how this could happen but here you are." << std::endl << std::endl;
 
-	std::cout << "End of Line" << std::endl;
+	std::cout << "End of Line" << std::endl;*/
 
 	
 	return 0;
@@ -273,8 +280,8 @@ bool checkSpace(int i, int board[], int piece)
 			//  on both the x and y of 1 they will look the same.
 
 			//Take the change in x and y
-			int tempDeltaX = abs((i % BOARD_WIDTH) - ((i + i2) % BOARD_WIDTH));
-			int tempDeltaY = abs((i / BOARD_WIDTH) - ((i + i2) / BOARD_WIDTH));
+			int tempDeltaX = (i % BOARD_WIDTH) - ((i + i2) % BOARD_WIDTH);
+			int tempDeltaY = (i / BOARD_WIDTH) - ((i + i2) / BOARD_WIDTH);
 
 			//Loop through the list of deltas
 			for (delta d : deltas)
@@ -284,12 +291,12 @@ bool checkSpace(int i, int board[], int piece)
 				//  If the deltas are in a line and they 
 
 				//IF
-				//    The temporary deltas are equal to the list deltas item
+				//    The temporary deltas are equal to the inverse of the list deltas item
 				//OR
 				//    The temporary deltas are equal to the list deltas added to themselves
 				//OR
 				//    The temporary deltas added to themselves are equal to the list deltas
-				if ((tempDeltaX == d.deltaX && tempDeltaY == d.deltaY) ||
+				if ((tempDeltaX == -d.deltaX && tempDeltaY == -d.deltaY) ||
 				    (tempDeltaX == d.deltaX + d.deltaX && tempDeltaY == d.deltaY + d.deltaY) ||
 					(tempDeltaX + tempDeltaX == d.deltaX && tempDeltaY + tempDeltaY == d.deltaY))
 				{
