@@ -260,8 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 
-Tic-Tac-Toe/Tic-Tac-Toe
+# Hide IDE specific files
+.vscode/
 
-/.vscode/
-
-main/Tic-Tac-Toe
