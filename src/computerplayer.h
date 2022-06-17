@@ -18,5 +18,6 @@ class ComputerPlayer
 		ComputerPlayer(int player, int *board, int boardlength, bool boardEmpty = true);
 		~ComputerPlayer();
 		int playsCount();
-		int play();
+		int playReturn();
+		void play();
 };
