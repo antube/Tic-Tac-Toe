@@ -46,7 +46,7 @@ struct Boolean
 
 //PROTOTYPES
 void printBoard(int[]);
-int getUserInput(int[]);
+void UserPlay(int[], int);
 std::shared_ptr<Boolean> isThereWinner(int[], int = 0);
 bool isCatGame(int[]);
 char whoWon(int[]);
@@ -142,7 +142,7 @@ void printBoard(int board[])
 }
 
 
-int getUserInput(int board[])
+void UserPlay(int board[], int player)
 {
 	int playPosition = 0;
 
@@ -152,7 +152,7 @@ int getUserInput(int board[])
 		std::cin >> playPosition;
 	} while (board[playPosition] != 0);
 	
-	return playPosition;
+	board[playPosition] = player;
 }
 
 
@@ -242,8 +242,8 @@ bool checkSpace(int i, int board[], int piece)
 			//  on both the x and y of 1 they will look the same.
 
 			//Take the change in x and y
-			int tempDeltaX = abs((i % BOARD_WIDTH) - ((i + i2) % BOARD_WIDTH));
-			int tempDeltaY = abs((i / BOARD_WIDTH) - ((i + i2) / BOARD_WIDTH));
+			int tempDeltaX = (i % BOARD_WIDTH) - ((i + i2) % BOARD_WIDTH);
+			int tempDeltaY = (i / BOARD_WIDTH) - ((i + i2) / BOARD_WIDTH);
 
 			//Loop through the list of deltas
 			for (delta d : deltas)
@@ -253,12 +253,12 @@ bool checkSpace(int i, int board[], int piece)
 				//  If the deltas are in a line and they 
 
 				//IF
-				//    The temporary deltas are equal to the list deltas item
+				//    The temporary deltas are equal to the inverse of the list deltas item
 				//OR
 				//    The temporary deltas are equal to the list deltas added to themselves
 				//OR
 				//    The temporary deltas added to themselves are equal to the list deltas
-				if ((tempDeltaX == d.deltaX && tempDeltaY == d.deltaY) ||
+				if ((tempDeltaX == -d.deltaX && tempDeltaY == -d.deltaY) ||
 				    (tempDeltaX == d.deltaX + d.deltaX && tempDeltaY == d.deltaY + d.deltaY) ||
 					(tempDeltaX + tempDeltaX == d.deltaX && tempDeltaY + tempDeltaY == d.deltaY))
 				{
