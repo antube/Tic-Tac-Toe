@@ -29,6 +29,7 @@
 #include "display/display.h"
 #include "display/displayMode.h"
 #include "computerplayer.h"
+#include "boolean.h"
 
 
 //DEFINTIONS
@@ -37,11 +38,7 @@
 
 
 //STRUCTURES
-struct Boolean
-{
-	bool True;
-	int piece;
-};
+
 
 
 //PROTOTYPES

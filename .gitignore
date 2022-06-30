@@ -262,4 +262,5 @@ __pycache__/
 
 # Hide IDE specific files
 .vscode/
-
+*.o
+t-t-t
